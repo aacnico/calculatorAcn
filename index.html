@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="cal.ico">
+    <title>Calculator Acn</title>
+    
+</head>
+
+<body>
+
+<div class="calContainer">
+
+    <div class="calculator">
+
+        <div class="calTitle">
+
+            <div class="calTitleText">
+                <h1>CALCULATOR ACN</h1>
+                <p>
+                    follow on my 
+                    <a href="https://www.instagram.com/acnico_/" target="_blank" rel="noopener">
+                        instagram
+                    </a>
+                </p>
+            </div>
+
+            <div class="calTitleClock">
+                <p id="clock">00:00:00</p>
+            </div>
+
+        </div>
+
+        <div class="calScreen">
+            <p id="screen" class="screenN">Enjoy This Calculator :D</p>
+        </div>
+
+        <div class="calButtons">
+
+            <input title="Open Parentheses" onclick="add('(')" value="(" type="button">
+            <input title="Close Parentheses" onclick="add(')')" value=")" type="button">
+
+            <input class="button" title="All Clear" onclick="ac()" value="AC" type="button">
+            <input class="button" title="Eliminate" onclick="eliminate()" value="X" type="button">
+
+            <input title="Seven" onclick="add('7')" value="7" type="button">
+            <input title="Eight" onclick="add('8')" value="8" type="button">
+            <input title="Nine" onclick="add('9')" value="9" type="button">
+            <input title="Division" onclick="add('/')" value="/" type="button">
+
+            <input title="Four" onclick="add('4')" value="4" type="button">
+            <input title="Five" onclick="add('5')" value="5" type="button">
+            <input title="Six" onclick="add('6')" value="6" type="button">
+            <input title="Multiplication" onclick="add('*')" value="*" type="button">
+
+            <input title="One" onclick="add('1')" value="1" type="button">
+            <input title="Two" onclick="add('2')" value="2" type="button">
+            <input title="Three" onclick="add('3')" value="3" type="button">
+            <input title="Subtraction" onclick="add('-')" value="-" type="button">
+
+            <input title="Zero" onclick="add('0')" value="0" type="button">
+            <input title="Period" onclick="add('.')" value="." type="button">
+            <input title="Equal" onclick="calculate()" value="=" type="button">
+            <input title="Sum" onclick="add('+')" value="+" type="button">
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+const screen = document.getElementById("screen")
+const clock = document.getElementById("clock")
+
+function add(valor){
+
+    if(screen.textContent === "Enjoy This Calculator :D"){
+        screen.textContent = valor
+        return
+    }
+
+    if(screen.textContent === "All Cleaned"){
+        screen.textContent = valor
+        return
+    }
+
+    if(screen.textContent === "0"){
+        screen.textContent = valor
+        return
+    }
+
+    screen.textContent += valor
+    screen.classList.replace("ac","screenN")
+}
+
+
+function calculate(){
+
+    let operation = screen.textContent
+
+    if(/[\+\-\*\/]{2,}/.test(operation)){
+        screen.textContent = "Syntax error"
+        return
+    }
+
+    try{
+        screen.textContent = eval(operation)
+    }
+    catch{
+        screen.textContent = "Error"
+    }
+}
+
+
+function eliminate(){
+
+    screen.textContent = screen.textContent.slice(0,-1)
+
+    if(screen.textContent === ""){
+        screen.textContent = ""
+    }
+
+    screen.classList.replace("ac","screenN")
+}
+
+
+function ac(){
+
+    screen.textContent = "All Cleaned"
+    screen.classList.replace("screenN","ac")
+}
+
+
+function updateClock(){
+
+    let now = new Date()
+
+    let h = String(now.getHours()).padStart(2,"0")
+    let m = String(now.getMinutes()).padStart(2,"0")
+    let s = String(now.getSeconds()).padStart(2,"0")
+
+    clock.textContent = `${h}:${m}:${s}`
+}
+
+setInterval(updateClock,1000)
+
+</script>
+
+</body>
+</html>
